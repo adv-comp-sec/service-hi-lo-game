@@ -31,6 +31,7 @@ namespace HiLoGame_Server
 
             try
             {
+                Console.WriteLine("Server");
                 lisneter.Bind(localEndPoint);   // bind the socket
                 lisneter.Listen(10);
 
@@ -39,13 +40,13 @@ namespace HiLoGame_Server
                     Socket handler = lisneter.Accept();     // accepts connection
                     ParameterizedThreadStart ts = new ParameterizedThreadStart(Worker);
                     Thread clientThread = new Thread(ts);
-                    clientThread.Start(client);
+                    clientThread.Start(handler);
                 }
 
             }
             catch
             {
-
+                Console.WriteLine("Server catch");
             }
         }
 

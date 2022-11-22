@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -22,6 +23,8 @@ namespace HiLoGame_Client
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private Socket sender = null;
         public MainWindow()
         {
             InitializeComponent();
@@ -79,7 +82,7 @@ namespace HiLoGame_Client
             Instructions.Text += "Try to connect into " + IP.ToString() + ":" + port.ToString() + " server...\n";
 
             IPEndPoint remoteEP = new IPEndPoint(IP, port);
-            Socket sender = new Socket(IP.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            sender = new Socket(IP.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
             // Connect the socket to the remote endpoint. Catch any errors.  
             try
@@ -90,11 +93,8 @@ namespace HiLoGame_Client
                 Name.IsEnabled = IPAdd.IsEnabled = PortNumber.IsEnabled = ConnectButton.IsEnabled = false;
                 GuessNumber.IsEnabled = GuessNumberButton.IsEnabled = true;
 
-                //// Encode the data string into a byte array.  
-                //byte[] msg = Encoding.ASCII.GetBytes("This is a test<EOF>");
-
-                //// Send the data through the socket.  
-                //int bytesSent = sender.Send(msg);
+                // Send the data through the socket.  
+                //int bytesSent = sender.Send();
 
                 //// Receive the response from the remote device.  
                 //int bytesRec = sender.Receive(bytes);
@@ -102,8 +102,8 @@ namespace HiLoGame_Client
                 //Encoding.ASCII.GetString(bytes, 0, bytesRec));
 
                 // Release the socket.  
-                sender.Shutdown(SocketShutdown.Both);
-                sender.Close();
+                // sender.Shutdown(SocketShutdown.Both);
+                // sender.Close();
 
             }
             catch (ArgumentNullException ane)
@@ -118,6 +118,35 @@ namespace HiLoGame_Client
             {
                 Instructions.Text += "Unexpected exception : " + e.ToString();
             }
+
+        }
+
+        private void GuessNumberButton_Click(object s, RoutedEventArgs e)
+        {
+            // Data buffer for incoming data.  
+            byte[] bytes = new byte[1024];
+
+            // Validate the number 
+            String strNumber = GuessNumber.Text;
+            byte[] number;
+
+            if (strNumber == "")
+            {
+                Instructions.Text = "[ERROR: You must guess the number first.]";
+                return;
+            }
+            else
+            {
+                number = Encoding.ASCII.GetBytes(strNumber);
+            }
+
+            // Send the data through the socket.  
+            int bytesSent = sender.Send(number);
+
+            // Receive the response from the remote device.  
+            int bytesRec = sender.Receive(bytes);
+
+            Instructions.Text = Encoding.ASCII.GetString(bytes, 0, bytesRec);
         }
     }
 }

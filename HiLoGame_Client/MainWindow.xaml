@@ -27,7 +27,7 @@
         
         <Rectangle Height="140" Margin="80,192,80,0" Stroke="Black" VerticalAlignment="Top"/>
         <TextBlock x:Name="Instructions" Margin="0,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="110" Width="596" HorizontalAlignment="Center" />
-        <Button Name="GuessNumberButton" Content="Make a Guess" HorizontalAlignment="Left" Margin="560,356,0,0" VerticalAlignment="Top" Width="80" Height="24" IsEnabled="False"/>
+        <Button Name="GuessNumberButton" Content="Make a Guess" HorizontalAlignment="Left" Margin="560,356,0,0" VerticalAlignment="Top" Width="80" Height="24" IsEnabled="False" Click="GuessNumberButton_Click"/>
         <TextBox Name="GuessNumber" HorizontalAlignment="Left" Margin="400,358,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20" IsEnabled="False"/>
         <Label Content="Guess the number here:" HorizontalAlignment="Left" Margin="80,352,0,0" VerticalAlignment="Top" Height="32" Width="280" FontWeight="Bold" HorizontalContentAlignment="Right" FontSize="16"/>
 

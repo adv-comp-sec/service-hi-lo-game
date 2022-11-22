@@ -14,7 +14,9 @@ namespace HiLoGame_Server
         private int minNumber = Convert.ToInt32(ConfigurationManager.AppSettings["MinNumber"]); // get range from config file
         private int maxNumber = Convert.ToInt32(ConfigurationManager.AppSettings["MaxNumber"]);
 
-        public int randomNumber = 0;   
+        public int randomNumber = 0;
+
+        public byte[] msg = null;
 
         internal void StartListening()
         {
@@ -28,6 +30,7 @@ namespace HiLoGame_Server
 
             Random random = new Random();
             randomNumber = random.Next(minNumber, maxNumber); // generate random number within the range
+            Socket handler = null;
 
             try
             {
@@ -37,16 +40,21 @@ namespace HiLoGame_Server
 
                 while(true)
                 {
-                    Socket handler = lisneter.Accept();     // accepts connection
+                    handler = lisneter.Accept();     // accepts connection
                     ParameterizedThreadStart ts = new ParameterizedThreadStart(Worker);
                     Thread clientThread = new Thread(ts);
                     clientThread.Start(handler);
                 }
-
             }
-            catch
+            catch (Exception ex)
             {
-                Console.WriteLine("Server catch");
+                msg = Encoding.ASCII.GetBytes(ex.ToString());
+                handler.Send(msg);
+            }
+            finally
+            {
+                handler.Shutdown(SocketShutdown.Both);
+                handler.Close();
             }
         }
 
@@ -69,7 +77,6 @@ namespace HiLoGame_Server
             }
 
             int guess = Convert.ToInt32(data);
-            byte[] msg = null;
 
             if (guess == randomNumber)            // check if guess is correct
             {
@@ -96,6 +103,4 @@ namespace HiLoGame_Server
 
         }
     }
-
-
 }

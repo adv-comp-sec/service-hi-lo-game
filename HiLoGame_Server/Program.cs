@@ -13,7 +13,9 @@ namespace HiLoGame_Server
     {
         static void Main(string[] args)
         {
-            
+            SynchronousSocketListenenr ssl = new SynchronousSocketListenenr();
+            ssl.StartListening();
+
         }
     }
 }

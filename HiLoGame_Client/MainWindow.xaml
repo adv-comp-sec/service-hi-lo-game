@@ -11,21 +11,21 @@
 
 
         <Label HorizontalAlignment="Left" Margin="80,112,0,0" VerticalAlignment="Top" Content="Name" FontWeight="Bold"/>
-        <TextBox Name="IPAddress" HorizontalAlignment="Left" Margin="80,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20"/>
+        <TextBox Name="Name" HorizontalAlignment="Left" Margin="80,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20"/>
 
         <Label HorizontalAlignment="Left" Margin="240,112,0,0" VerticalAlignment="Top">
             <Run FontWeight="Bold" Text="IP Address"/>
         </Label>
-        <TextBox Name="Name" HorizontalAlignment="Left" Margin="240,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20"/>
+        <TextBox Name="IPAddress" HorizontalAlignment="Left" Margin="240,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20"/>
 
         <Label HorizontalAlignment="Left" Margin="400,112,0,0" VerticalAlignment="Top">
             <Run FontWeight="Bold" Text="Port Number"/>
         </Label>
         <TextBox Name="PortNumber" HorizontalAlignment="Left" Margin="400,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20"/>
 
-        <Button Content="Connect" HorizontalAlignment="Left" Margin="560,138,0,0" VerticalAlignment="Top" BorderBrush="Black" Height="20" Width="80"/>
+        <Button x:Name="ConnectButton" Content="Connect" HorizontalAlignment="Left" Margin="560,138,0,0" VerticalAlignment="Top" BorderBrush="Black" Height="20" Width="80" Click="ConnectButton_Click"/>
         <Rectangle Height="140" Margin="80,192,80,0" Stroke="Black" VerticalAlignment="Top"/>
-        <TextBlock x:Name="Instructions" Margin="0,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="110" Width="596" HorizontalAlignment="Center"/>
+        <TextBlock x:Name="Instructions" Margin="0,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="110" Width="596" HorizontalAlignment="Center" />
         <Button Content="Make a Guess" HorizontalAlignment="Left" Margin="560,356,0,0" VerticalAlignment="Top" Width="80" Height="24" IsEnabled="False"/>
         <TextBox HorizontalAlignment="Left" Margin="400,358,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20" IsEnabled="False"/>
         <Label Content="Guess the number here:" HorizontalAlignment="Left" Margin="80,352,0,0" VerticalAlignment="Top" Height="32" Width="280" FontWeight="Bold" HorizontalContentAlignment="Right" FontSize="16"/>

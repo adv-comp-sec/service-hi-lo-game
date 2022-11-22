@@ -23,9 +23,31 @@ namespace HiLoGame_Client
         public MainWindow()
         {
             InitializeComponent();
+            Instructions.Text = "This is Hi-Lo game.";
         }
 
+        private void ConnectButton_Click(object sender, RoutedEventArgs e)
+        {
+            // get a name first
+            String name = Name.Text;
+            if (name == "")
+            {
+                Instructions.Text = "[ERROR: You must enter the name to start.]";
+            }
 
+            try
+            {
+               
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("SocketException: {0}", ex);
+            }
+        }
 
+        private void Instructions_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
+        {
+
+        }
     }
 }

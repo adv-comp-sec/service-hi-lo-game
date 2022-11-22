@@ -7,6 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Label Content="Hi-Lo Game" HorizontalAlignment="Left" Height="54" Margin="80,40,0,0" VerticalAlignment="Top" Width="220" FontSize="36" FontFamily="Segoe UI Variable Display Semibold"/>
+
+        <Label HorizontalAlignment="Left" Margin="80,120,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.519,0.655">
+            <Run FontWeight="Bold" Text="IP"/>
+        </Label>
+        <TextBox HorizontalAlignment="Left" Margin="80,146,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <Label HorizontalAlignment="Left" Margin="240,120,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.519,0.655">
+            <Run FontWeight="Bold" Text="Port"/>
+        </Label>
+        <TextBox HorizontalAlignment="Left" Margin="240,146,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <Button Content="Connect" HorizontalAlignment="Left" Margin="400,145,0,0" VerticalAlignment="Top" Click="Button_Click" BorderBrush="Black"/>
+        <Label Content="Error message" HorizontalAlignment="Left" Margin="500,142,0,0" VerticalAlignment="Top" Width="256" Foreground="Red"/>
+        <Rectangle Height="140" Margin="80,200,80,0" Stroke="Black" VerticalAlignment="Top"/>
+        <Label Content="Label" HorizontalAlignment="Right" Margin="0,200,184,0" VerticalAlignment="Top" Height="140" Width="426"/>
+
     </Grid>
 </Window>

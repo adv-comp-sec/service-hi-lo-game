@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,25 +29,40 @@ namespace HiLoGame_Client
 
         private void ConnectButton_Click(object sender, RoutedEventArgs e)
         {
-            // get a name first
+            // Validate the user name
             String name = Name.Text;
             if (name == "")
             {
                 Instructions.Text = "[ERROR: You must enter the name to start.]";
+                return;
             }
 
-            try
+            // Validate the IP Address
+            String strIP = IPAdd.Text;
+            if (strIP == "")
             {
-               
+                Instructions.Text = "[ERROR: You must enter the IP Address to start.]";
+                return;
             }
-            catch (Exception ex)
+            else if (!IPAddress.TryParse(strIP, out IPAddress ip))
             {
-                Console.WriteLine("SocketException: {0}", ex);
+                Instructions.Text = "[ERROR: You must enter the right form of the IP Address. (e.g. 127.0.0.1)]";
+                return;
             }
-        }
 
-        private void Instructions_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
-        {
+            // Valiate the port number
+            String strPort = PortNumber.Text;
+            if (strPort == "")
+            {
+                Instructions.Text = "[ERROR: You must enter the port number to start.]";
+                return;
+            }
+            else if (!int.TryParse(strPort, out int port))
+            {
+                Instructions.Text = "[ERROR: You must enter the right form of the port number.]";
+                return;
+            }
+
 
         }
     }

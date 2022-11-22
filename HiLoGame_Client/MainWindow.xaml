@@ -16,7 +16,7 @@
         <Label HorizontalAlignment="Left" Margin="240,112,0,0" VerticalAlignment="Top">
             <Run FontWeight="Bold" Text="IP Address"/>
         </Label>
-        <TextBox Name="IPAddress" HorizontalAlignment="Left" Margin="240,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20"/>
+        <TextBox Name="IPAdd" HorizontalAlignment="Left" Margin="240,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20"/>
 
         <Label HorizontalAlignment="Left" Margin="400,112,0,0" VerticalAlignment="Top">
             <Run FontWeight="Bold" Text="Port Number"/>

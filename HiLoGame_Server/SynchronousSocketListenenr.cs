@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
@@ -9,6 +10,10 @@ namespace HiLoGame_Server
 {
     internal class SynchronousSocketListenenr
     {
+        private int minNumber = Convert.ToInt32(ConfigurationManager.AppSettings["MinNumber"]); // get range from config file
+        private int maxNumber = Convert.ToInt32(ConfigurationManager.AppSettings["MaxNumber"]);
+
+        public int randomNumber = 0;   
 
         internal void StartListening()
         {
@@ -19,6 +24,9 @@ namespace HiLoGame_Server
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 13000);        // local end point for the socket
 
             Socket lisneter = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);     // create socket
+
+            Random random = new Random();
+            randomNumber = random.Next(minNumber, maxNumber); // generate random number within the range
 
             try
             {

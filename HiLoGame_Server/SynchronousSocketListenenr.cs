@@ -1,14 +1,20 @@
 ﻿using System;
+using System.Configuration;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using System.Windows.Interop;
 
 namespace HiLoGame_Server
 {
     internal class SynchronousSocketListenenr
     {
+        private int minNumber = Convert.ToInt32(ConfigurationManager.AppSettings["MinNumber"]); // get range from config file
+        private int maxNumber = Convert.ToInt32(ConfigurationManager.AppSettings["MaxNumber"]);
+
+        public int randomNumber = 0;   
 
         internal void StartListening()
         {
@@ -19,6 +25,9 @@ namespace HiLoGame_Server
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 13000);        // local end point for the socket
 
             Socket lisneter = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);     // create socket
+
+            Random random = new Random();
+            randomNumber = random.Next(minNumber, maxNumber); // generate random number within the range
 
             try
             {
@@ -58,6 +67,29 @@ namespace HiLoGame_Server
                 }
             }
 
+            int guess = Convert.ToInt32(data);
+            byte[] msg = null;
+
+            if (guess == randomNumber)            // check if guess is correct
+            {
+                msg = Encoding.ASCII.GetBytes("You Win!");
+            }
+            else                                        // change the range accordingly the guess
+            {
+                if (guess < randomNumber)
+                {
+                    minNumber = guess + 1;
+                    msg = Encoding.ASCII.GetBytes("Your allowable range is " + minNumber + " to " + maxNumber);
+                    
+                }
+                else
+                {
+                    maxNumber = guess - 1;
+                    msg = Encoding.ASCII.GetBytes("Your allowable range is " + minNumber + " to " + maxNumber);
+                }
+            }
+
+            handler.Send(msg);
             handler.Shutdown(SocketShutdown.Both);
             handler.Close();
 

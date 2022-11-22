@@ -28,7 +28,7 @@ namespace HiLoGame_Client
             Instructions.Text = "This is Hi-Lo game.";
         }
 
-        private void ConnectButton_Click(object s, RoutedEventArgs e)
+        private void ConnectButton_Click(object s, RoutedEventArgs ev)
         {
             // Validate the user name
             String name = Name.Text;
@@ -77,7 +77,47 @@ namespace HiLoGame_Client
             // Start the game.
             Instructions.Text = "Hello, " + name + "! Let's start a game!\n";
             Instructions.Text += "Try to connect into " + IP.ToString() + ":" + port.ToString() + " server...\n";
+
+            IPEndPoint remoteEP = new IPEndPoint(IP, port);
             Socket sender = new Socket(IP.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+
+            // Connect the socket to the remote endpoint. Catch any errors.  
+            try
+            {
+                sender.Connect(remoteEP);
+
+                Instructions.Text += "Socket connected to " + sender.RemoteEndPoint.ToString() + "\n";
+                Name.IsEnabled = IPAdd.IsEnabled = PortNumber.IsEnabled = ConnectButton.IsEnabled = false;
+                GuessNumber.IsEnabled = GuessNumberButton.IsEnabled = true;
+
+                //// Encode the data string into a byte array.  
+                //byte[] msg = Encoding.ASCII.GetBytes("This is a test<EOF>");
+
+                //// Send the data through the socket.  
+                //int bytesSent = sender.Send(msg);
+
+                //// Receive the response from the remote device.  
+                //int bytesRec = sender.Receive(bytes);
+                //Console.WriteLine("Echoed test = {0}",
+                //Encoding.ASCII.GetString(bytes, 0, bytesRec));
+
+                // Release the socket.  
+                sender.Shutdown(SocketShutdown.Both);
+                sender.Close();
+
+            }
+            catch (ArgumentNullException ane)
+            {
+                Instructions.Text += "ArgumentNullException : " + ane.ToString();
+            }
+            catch (SocketException se)
+            {
+                Instructions.Text += "SocketException : " + se.ToString();
+            }
+            catch (Exception e)
+            {
+                Instructions.Text += "Unexpected exception : " + e.ToString();
+            }
         }
     }
 }

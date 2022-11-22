@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
 
 namespace HiLoGame_Server
 {
     internal class SynchronousSocketListenenr
     {
-        public string data = null;              // data from client
 
         internal void StartListening()
         {
-            byte[] bytes = new Byte[1024];      // data buffer
+            
 
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());       // name of the host 
             IPAddress ipAddress = ipHostInfo.AddressList[0];                    // ip address of the host
@@ -23,8 +25,13 @@ namespace HiLoGame_Server
                 lisneter.Bind(localEndPoint);   // bind the socket
                 lisneter.Listen(10);
 
-                Socket handler = lisneter.Accept();     // accepts connection
-                data = null;
+                while(true)
+                {
+                    Socket handler = lisneter.Accept();     // accepts connection
+                    ParameterizedThreadStart ts = new ParameterizedThreadStart(Worker);
+                    Thread clientThread = new Thread(ts);
+                    clientThread.Start(client);
+                }
 
             }
             catch
@@ -32,5 +39,30 @@ namespace HiLoGame_Server
 
             }
         }
+
+        public void Worker(Object o)
+        {
+            String data = null;                 // data passed by the client
+            Byte[] bytes = new Byte[1024];      // data buffer
+            Socket handler = (Socket)o;         // cast object to socket
+
+            while (true)                        // loop to get all the data received by the client
+            {
+                int bytesReceived = handler.Receive(bytes);
+                
+                data += Encoding.ASCII.GetString(bytes, 0, bytesReceived);      // process the data to ASCII values (decoding)
+
+                if (data.IndexOf("<EOF>") > -1)     // check whether is the end of the data
+                {
+                    break;
+                }
+            }
+
+            handler.Shutdown(SocketShutdown.Both);
+            handler.Close();
+
+        }
     }
+
+
 }

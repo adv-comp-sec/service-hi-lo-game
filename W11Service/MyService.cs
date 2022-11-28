@@ -16,14 +16,17 @@ namespace W11Service
         public MyService()
         {
             InitializeComponent();
+            CanPauseAndContinue = true;
         }
 
         protected override void OnStart(string[] args)
         {
+
         }
 
         protected override void OnStop()
         {
+
         }
     }
 }

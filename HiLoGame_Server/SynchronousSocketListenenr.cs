@@ -64,17 +64,9 @@ namespace HiLoGame_Server
             Byte[] bytes = new Byte[1024];      // data buffer
             Socket handler = (Socket)o;         // cast object to socket
 
-            while (true)                        // loop to get all the data received by the client
-            {
-                int bytesReceived = handler.Receive(bytes);
-                
-                data += Encoding.ASCII.GetString(bytes, 0, bytesReceived);      // process the data to ASCII values (decoding)
+            int bytesReceived = handler.Receive(bytes);
 
-                if (data.IndexOf("<EOF>") > -1)     // check whether is the end of the data
-                {
-                    break;
-                }
-            }
+            data += Encoding.ASCII.GetString(bytes, 0, bytesReceived);      // process the data to ASCII values (decoding)
 
             int guess = Convert.ToInt32(data);
 

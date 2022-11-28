@@ -25,6 +25,8 @@ namespace HiLoGame_Client
     {
 
         private Socket sender = null;
+        IPAddress IP;
+        int port;
         public MainWindow()
         {
             InitializeComponent();
@@ -43,7 +45,6 @@ namespace HiLoGame_Client
 
             // Validate the IP Address
             String strIP = IPAdd.Text;
-            IPAddress IP;
             if (strIP == "")
             {
                 Instructions.Text = "[ERROR: You must enter the IP Address to start.]";
@@ -61,7 +62,6 @@ namespace HiLoGame_Client
 
             // Valiate the port number
             String strPort = PortNumber.Text;
-            int port;
             if (strPort == "")
             {
                 Instructions.Text = "[ERROR: You must enter the port number to start.]";
@@ -123,6 +123,11 @@ namespace HiLoGame_Client
 
         private void GuessNumberButton_Click(object s, RoutedEventArgs e)
         {
+            
+            IPEndPoint remoteEP = new IPEndPoint(IP, port);
+            sender = new Socket(IP.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            sender.Connect(remoteEP);
+
             // Data buffer for incoming data.  
             byte[] bytes = new byte[1024];
 
@@ -147,6 +152,9 @@ namespace HiLoGame_Client
             int bytesRec = sender.Receive(bytes);
 
             Instructions.Text = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+
+            //sender.Shutdown(SocketShutdown.Both);
+            //sender.Close();
         }
     }
 }

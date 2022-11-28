@@ -149,4 +149,5 @@ namespace HiLoGame_Client
             Instructions.Text = Encoding.ASCII.GetString(bytes, 0, bytesRec);
         }
     }
+
 }

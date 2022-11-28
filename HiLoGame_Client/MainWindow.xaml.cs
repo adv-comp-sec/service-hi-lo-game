@@ -123,7 +123,7 @@ namespace HiLoGame_Client
 
         private void GuessNumberButton_Click(object s, RoutedEventArgs e)
         {
-            
+
             IPEndPoint remoteEP = new IPEndPoint(IP, port);
             sender = new Socket(IP.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             sender.Connect(remoteEP);
@@ -152,9 +152,12 @@ namespace HiLoGame_Client
             int bytesRec = sender.Receive(bytes);
 
             Instructions.Text = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+        }
 
-            //sender.Shutdown(SocketShutdown.Both);
-            //sender.Close();
+        private void StopButton_Click(object s, RoutedEventArgs e)
+        {
+            sender.Shutdown(SocketShutdown.Both);
+            sender.Close();
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
+using W11Service;
 
 namespace A06Service
 {
@@ -23,16 +24,16 @@ namespace A06Service
             Logger.Log("Starting HiLo Game Service.");
             Task.Run(() =>
             {
-                HiLoGame_Server.SynchronousSocketListenenr ssl = new HiLoGame_Server.SynchronousSocketListenenr();
-                ssl.StartListening();
+                GameEngine game = new GameEngine();
+                game.StartListening();
             });
         }
 
         protected override void OnStop()
         {
             Logger.Log("Stopping HiLo Game Service.");
-            HiLoGame_Server.SynchronousSocketListenenr ssl = new HiLoGame_Server.SynchronousSocketListenenr();
-            ssl.StopListening();
+            GameEngine game = new GameEngine();
+            game.StopListening();
         }
     }
 }

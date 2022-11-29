@@ -11,7 +11,7 @@ namespace A06Service
         {
             Guid guid = Guid.NewGuid();
             string directoryPath = ConfigurationManager.AppSettings["Directory"];
-            string logFilePath = directoryPath + guid.ToString() + ".txt";
+            string logFilePath = directoryPath + "\\" + guid.ToString() + ".txt";
             StreamWriter HiLoLog = null;
             
             try

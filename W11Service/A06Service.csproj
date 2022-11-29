@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameEngine.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="GameService.cs">
       <SubType>Component</SubType>

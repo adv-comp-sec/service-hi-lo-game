@@ -150,27 +150,52 @@ namespace HiLoGame_Client
 
         private void StopButton_Click(object s, RoutedEventArgs e)
         {
-            if (true)
-            {
-                MessageBoxResult closingResult = MessageBox.Show("Do you want to exit?", "Exit", MessageBoxButton.YesNo);
 
-                if (closingResult == MessageBoxResult.Yes)
-                {
-                    Environment.Exit(0);
-                }
-                else if (closingResult == MessageBoxResult.No)
-                {
-                    // do nothing
-                }
+            MessageBoxResult closingResult = MessageBox.Show("Do you want to exit?", "Exit", MessageBoxButton.YesNo);
 
-            }
-            else
+            if (closingResult == MessageBoxResult.Yes)
             {
+                if (sender != null && sender.Connected)
+                {
+                    sender.Shutdown(SocketShutdown.Both);
+                    sender.Close();
+                }
                 Environment.Exit(0);
             }
-            sender.Shutdown(SocketShutdown.Both);
-            sender.Close();
+            else if (closingResult == MessageBoxResult.No)
+            {
+                // do nothing
+            }
+
         }
+
+        /*
+        * FUNCTION:	    CloseButton_Click()
+        * DESCRIPTION:	Close the window.
+        * PARAMETERS:
+        *       object sender:      The object has an event.
+        *       CancleEventArgs e:  The cancel event.
+        * RETURNS:      none
+        */
+        private void CloseButton_Click(object s, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult closingResult = MessageBox.Show("Do you want to exit?", "Exit", MessageBoxButton.YesNo);
+
+            if (closingResult == MessageBoxResult.Yes)
+            {
+                if (sender != null && sender.Connected)
+                {
+                    sender.Shutdown(SocketShutdown.Both);
+                    sender.Close();
+                }
+                Environment.Exit(0);
+            }
+            else if (closingResult == MessageBoxResult.No)
+            {
+                // do nothing
+            }
+        }
+
     }
 
 }

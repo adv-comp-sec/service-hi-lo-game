@@ -16,7 +16,6 @@ namespace A06Service
         public A06Service()
         {
             InitializeComponent();
-            CanPauseAndContinue = true;
         }
 
         protected override void OnStart(string[] args)

@@ -44,7 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileDataEntity.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MyService.cs">
       <SubType>Component</SubType>

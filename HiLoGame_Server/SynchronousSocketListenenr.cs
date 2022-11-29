@@ -18,10 +18,13 @@ namespace HiLoGame_Server
 
         public byte[] msg = null;
 
+        public Socket handler = null;
+
+        public volatile bool listen = true;
+
         public void StartListening()
         {
             
-
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());       // name of the host 
             IPAddress ipAddress = ipHostInfo.AddressList[0];                    // ip address of the host
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 13000);        // local end point for the socket
@@ -30,15 +33,14 @@ namespace HiLoGame_Server
 
             Random random = new Random();
             randomNumber = random.Next(minNumber, maxNumber); // generate random number within the range
-            Socket handler = null;
-
+            
             try
             {
                 Console.WriteLine("Server");
                 lisneter.Bind(localEndPoint);   // bind the socket
                 lisneter.Listen(10);
 
-                while(true)
+                while(listen)
                 {
                     handler = lisneter.Accept();     // accepts connection
                     ParameterizedThreadStart ts = new ParameterizedThreadStart(Worker);
@@ -93,6 +95,15 @@ namespace HiLoGame_Server
             handler.Shutdown(SocketShutdown.Both);
             handler.Close();
 
+        }
+
+        public void StopListening()
+        {
+            msg = Encoding.ASCII.GetBytes("Stopping the server.");
+            handler.Send(msg);
+            listen = false;
+            handler.Shutdown(SocketShutdown.Both);
+            handler.Close();
         }
     }
 }

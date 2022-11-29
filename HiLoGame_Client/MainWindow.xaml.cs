@@ -88,13 +88,12 @@ namespace HiLoGame_Client
             try
             {
                 sender.Connect(remoteEP);
-                byte[] startCode = Encoding.ASCII.GetBytes("N");
-                sender.Send(startCode);
+                //byte[] startCode = Encoding.ASCII.GetBytes("N");
+                //sender.Send(startCode);
 
-                Guid guid = new Guid();
-                byte[] userID = guid.ToByteArray();
-                sender.Send(userID);
-
+                //Guid guid = new Guid();
+                //byte[] userID = guid.ToByteArray();
+                //sender.Send(userID);
 
                 Instructions.Text += "Socket connected to " + sender.RemoteEndPoint.ToString() + "\n";
                 Name.IsEnabled = IPAdd.IsEnabled = PortNumber.IsEnabled = ConnectButton.IsEnabled = false;
@@ -157,7 +156,7 @@ namespace HiLoGame_Client
 
         private void StopButton_Click(object s, RoutedEventArgs e)
         {
-            byte[] exitCode = Encoding.ASCII.GetBytes("E");
+            // byte[] exitCode = Encoding.ASCII.GetBytes("E");
 
             MessageBoxResult closingResult = MessageBox.Show("Do you want to exit?", "Exit", MessageBoxButton.YesNo);
 
@@ -165,7 +164,7 @@ namespace HiLoGame_Client
             {
                 if (sender != null && sender.Connected)
                 {
-                    int bytesSent = sender.Send(exitCode);
+                    // int bytesSent = sender.Send(exitCode);
                     sender.Shutdown(SocketShutdown.Both);
                     sender.Close();
                 }
@@ -188,7 +187,7 @@ namespace HiLoGame_Client
         */
         private void CloseButton_Click(object s, System.ComponentModel.CancelEventArgs e)
         {
-            byte[] exitCode = Encoding.ASCII.GetBytes("E");
+            // byte[] exitCode = Encoding.ASCII.GetBytes("E");
 
             MessageBoxResult closingResult = MessageBox.Show("Do you want to exit?", "Exit", MessageBoxButton.YesNo);
 
@@ -196,7 +195,7 @@ namespace HiLoGame_Client
             {
                 if (sender != null && sender.Connected)
                 {
-                    int bytesSent = sender.Send(exitCode);
+                    // int bytesSent = sender.Send(exitCode);
                     sender.Shutdown(SocketShutdown.Both);
                     sender.Close();
                 }

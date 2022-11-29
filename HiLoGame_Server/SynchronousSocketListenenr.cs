@@ -2,10 +2,8 @@
 using System.Configuration;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using System.Windows.Interop;
 
 namespace HiLoGame_Server
 {
@@ -22,7 +20,7 @@ namespace HiLoGame_Server
 
         public volatile bool listen = true;
 
-        public void StartListening()
+        internal void StartListening()
         {
 
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());       // name of the host 
@@ -36,7 +34,7 @@ namespace HiLoGame_Server
 
             try
             {
-                Console.WriteLine("Server");
+                Console.WriteLine("Server is running...");
                 lisneter.Bind(localEndPoint);   // bind the socket
                 lisneter.Listen(10);
 
@@ -70,27 +68,27 @@ namespace HiLoGame_Server
 
             data += Encoding.ASCII.GetString(bytes, 0, bytesReceived);      // process the data to ASCII values (decoding)
 
-                int guess = Convert.ToInt32(data);
+            int guess = Convert.ToInt32(data);
 
-                if (guess == randomNumber)            // check if guess is correct
+            if (guess == randomNumber)            // check if guess is correct
+            {
+                msg = Encoding.ASCII.GetBytes("You Win!");
+            }
+            else                                        // change the range accordingly the guess
+            {
+                if (guess < randomNumber)
                 {
-                    msg = Encoding.ASCII.GetBytes("You Win!");
-                }
-                else                                        // change the range accordingly the guess
-                {
-                    if (guess < randomNumber)
-                    {
-                        minNumber = guess + 1;
-                        msg = Encoding.ASCII.GetBytes("Your allowable range is " + minNumber + " to " + maxNumber);
+                    minNumber = guess + 1;
+                    msg = Encoding.ASCII.GetBytes("Your allowable range is " + minNumber + " to " + maxNumber);
 
-                    }
-                    else
-                    {
-                        maxNumber = guess - 1;
-                        msg = Encoding.ASCII.GetBytes("Your allowable range is " + minNumber + " to " + maxNumber);
-                    }
                 }
-     
+                else
+                {
+                    maxNumber = guess - 1;
+                    msg = Encoding.ASCII.GetBytes("Your allowable range is " + minNumber + " to " + maxNumber);
+                }
+            }
+
 
             handler.Send(msg);
             handler.Shutdown(SocketShutdown.Both);

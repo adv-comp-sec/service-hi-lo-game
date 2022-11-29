@@ -150,6 +150,9 @@ namespace HiLoGame_Client
 
         private void StopButton_Click(object s, RoutedEventArgs e)
         {
+            // Data buffer for incoming data.  
+            byte[] bytes = new byte[1024];
+            byte[] exitCode = Encoding.ASCII.GetBytes("E");
 
             MessageBoxResult closingResult = MessageBox.Show("Do you want to exit?", "Exit", MessageBoxButton.YesNo);
 
@@ -157,6 +160,7 @@ namespace HiLoGame_Client
             {
                 if (sender != null && sender.Connected)
                 {
+                    int bytesSent = sender.Send(exitCode);
                     sender.Shutdown(SocketShutdown.Both);
                     sender.Close();
                 }

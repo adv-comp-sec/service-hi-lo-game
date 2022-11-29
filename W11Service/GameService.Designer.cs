@@ -1,6 +1,6 @@
-﻿namespace W11Service
+﻿namespace A06Service
 {
-    partial class MyService
+    partial class A06Service
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.ServiceName = "Service1";
+            // 
+            // A06Service
+            // 
+            this.ServiceName = "GameService";
+
         }
 
         #endregion

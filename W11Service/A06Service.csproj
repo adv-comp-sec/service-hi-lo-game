@@ -75,11 +75,5 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HiLoGame_Server\HiLoGame_Server.csproj">
-      <Project>{b337b1d3-09ac-4ce6-9fb8-ed42425acf13}</Project>
-      <Name>HiLoGame_Server</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

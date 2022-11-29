@@ -5,8 +5,6 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A06Service", "W11Service\A06Service.csproj", "{69DEAB68-E5A3-4C07-8F21-302496D62D60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiLoGame_Server", "HiLoGame_Server\HiLoGame_Server.csproj", "{B337B1D3-09AC-4CE6-9FB8-ED42425ACF13}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiLoGame_Client", "HiLoGame_Client\HiLoGame_Client.csproj", "{48A99F39-08B4-4077-AE33-494FBCBC4ADA}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{69DEAB68-E5A3-4C07-8F21-302496D62D60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69DEAB68-E5A3-4C07-8F21-302496D62D60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69DEAB68-E5A3-4C07-8F21-302496D62D60}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B337B1D3-09AC-4CE6-9FB8-ED42425ACF13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B337B1D3-09AC-4CE6-9FB8-ED42425ACF13}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B337B1D3-09AC-4CE6-9FB8-ED42425ACF13}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B337B1D3-09AC-4CE6-9FB8-ED42425ACF13}.Release|Any CPU.Build.0 = Release|Any CPU
 		{48A99F39-08B4-4077-AE33-494FBCBC4ADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{48A99F39-08B4-4077-AE33-494FBCBC4ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48A99F39-08B4-4077-AE33-494FBCBC4ADA}.Release|Any CPU.ActiveCfg = Release|Any CPU

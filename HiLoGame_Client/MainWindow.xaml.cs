@@ -52,7 +52,7 @@ namespace HiLoGame_Client
             }
             else if (!IPAddress.TryParse(strIP, out IP))
             {
-                Instructions.Text = "[ERROR: You must enter the right form of the IP Address. (e.g. 127.0.0.1)]";
+                Instructions.Text = "[ERROR: You must enter the right form of the IP Address.]";
                 return;
             }
             else
@@ -92,18 +92,6 @@ namespace HiLoGame_Client
                 Instructions.Text += "Socket connected to " + sender.RemoteEndPoint.ToString() + "\n";
                 Name.IsEnabled = IPAdd.IsEnabled = PortNumber.IsEnabled = ConnectButton.IsEnabled = false;
                 GuessNumber.IsEnabled = GuessNumberButton.IsEnabled = true;
-
-                // Send the data through the socket.  
-                //int bytesSent = sender.Send();
-
-                //// Receive the response from the remote device.  
-                //int bytesRec = sender.Receive(bytes);
-                //Console.WriteLine("Echoed test = {0}",
-                //Encoding.ASCII.GetString(bytes, 0, bytesRec));
-
-                // Release the socket.  
-                // sender.Shutdown(SocketShutdown.Both);
-                // sender.Close();
 
             }
             catch (ArgumentNullException ane)
@@ -152,10 +140,34 @@ namespace HiLoGame_Client
             int bytesRec = sender.Receive(bytes);
 
             Instructions.Text = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+
+            // Check if the user win
+            if (Instructions.Text == "You Win!")
+            {
+                GuessNumberButton.Content = "Play Again";
+            }
         }
 
         private void StopButton_Click(object s, RoutedEventArgs e)
         {
+            if (true)
+            {
+                MessageBoxResult closingResult = MessageBox.Show("Do you want to exit?", "Exit", MessageBoxButton.YesNo);
+
+                if (closingResult == MessageBoxResult.Yes)
+                {
+                    Environment.Exit(0);
+                }
+                else if (closingResult == MessageBoxResult.No)
+                {
+                    // do nothing
+                }
+
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
             sender.Shutdown(SocketShutdown.Both);
             sender.Close();
         }

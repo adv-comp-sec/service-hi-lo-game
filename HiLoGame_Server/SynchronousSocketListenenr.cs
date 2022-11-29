@@ -9,7 +9,7 @@ using System.Windows.Interop;
 
 namespace HiLoGame_Server
 {
-    internal class SynchronousSocketListenenr
+    public class SynchronousSocketListenenr
     {
         private int minNumber = Convert.ToInt32(ConfigurationManager.AppSettings["MinNumber"]); // get range from config file
         private int maxNumber = Convert.ToInt32(ConfigurationManager.AppSettings["MaxNumber"]);
@@ -18,7 +18,7 @@ namespace HiLoGame_Server
 
         public byte[] msg = null;
 
-        internal void StartListening()
+        public void StartListening()
         {
             
 

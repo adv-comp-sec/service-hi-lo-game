@@ -9,11 +9,11 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace W11Service
+namespace A06Service
 {
-    public partial class MyService : ServiceBase
+    public partial class A06Service : ServiceBase
     {
-        public MyService()
+        public A06Service()
         {
             InitializeComponent();
             CanPauseAndContinue = true;
@@ -21,7 +21,12 @@ namespace W11Service
 
         protected override void OnStart(string[] args)
         {
-
+            Logger.Log("Starting...");
+            Task.Run(() =>
+            {
+                HiLoGame_Server.SynchronousSocketListenenr ssl = new HiLoGame_Server.SynchronousSocketListenenr();
+                ssl.StartListening();
+            });
         }
 
         protected override void OnStop()

@@ -1,26 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace W11Service
+namespace A06Service
 {
     public static class Logger
     {
+        
         public static void Log(string message)
         {
-            EventLog serviceEventLog = new EventLog();
-
-            if(!EventLog.SourceExists("ServiceEventSource"))
+            Guid guid = Guid.NewGuid();
+            //string directoryPath = ConfigurationManager.AppSettings["Directory"];
+            string logFilePath = guid.ToString() + ".txt";
+            StreamWriter HiLoLog;
+            
+            try
             {
-                EventLog.CreateEventSource("ServiceEventSource", "ServiceEventLog");
+                HiLoLog = new StreamWriter(logFilePath);
+                //fi
+            }
+            catch
+            {
+
             }
 
-            serviceEventLog.Source = "ServiceEventSource";
-            serviceEventLog.Log = "ServiceEventLog";
-            serviceEventLog.WriteEntry(message);
+            //EventLog serviceEventLog = new EventLog();
+
+            //if(!EventLog.SourceExists("ServiceEventSource"))
+            //{
+            //    EventLog.CreateEventSource("ServiceEventSource", "ServiceEventLog");
+            //}
+
+            //serviceEventLog.Source = "ServiceEventSource";
+            //serviceEventLog.Log = "ServiceEventLog";
+            //serviceEventLog.WriteEntry(message);
         }
     }
 }

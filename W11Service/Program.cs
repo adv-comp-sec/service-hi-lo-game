@@ -5,7 +5,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace W11Service
+namespace A06Service
 {
     internal static class Program
     {
@@ -17,7 +17,7 @@ namespace W11Service
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new MyService()
+                new A06Service()
             };
             ServiceBase.Run(ServicesToRun);
         }

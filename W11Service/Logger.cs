@@ -1,44 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 
 namespace A06Service
 {
     public static class Logger
     {
-        
         public static void Log(string message)
         {
             Guid guid = Guid.NewGuid();
-            //string directoryPath = ConfigurationManager.AppSettings["Directory"];
-            string logFilePath = guid.ToString() + ".txt";
-            StreamWriter HiLoLog;
+            string directoryPath = ConfigurationManager.AppSettings["Directory"];
+            string logFilePath = directoryPath + guid.ToString() + ".txt";
+            StreamWriter HiLoLog = null;
             
             try
             {
                 HiLoLog = new StreamWriter(logFilePath);
-                //fi
+                HiLoLog.Write("\r\nLog Entry:\n" + DateTime.Now.ToString() + ": " + message);
             }
-            catch
+            catch(Exception e)
             {
-
+                HiLoLog.Write("\r\nLog Entry:\n" + DateTime.Now.ToString() + ": " + e.ToString());
             }
-
-            //EventLog serviceEventLog = new EventLog();
-
-            //if(!EventLog.SourceExists("ServiceEventSource"))
-            //{
-            //    EventLog.CreateEventSource("ServiceEventSource", "ServiceEventLog");
-            //}
-
-            //serviceEventLog.Source = "ServiceEventSource";
-            //serviceEventLog.Log = "ServiceEventLog";
-            //serviceEventLog.WriteEntry(message);
+            finally
+            {
+                if (HiLoLog != null)
+                {
+                    HiLoLog.Close();
+                    HiLoLog = null;
+                }
+            }
         }
     }
 }

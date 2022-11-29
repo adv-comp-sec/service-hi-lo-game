@@ -88,6 +88,13 @@ namespace HiLoGame_Client
             try
             {
                 sender.Connect(remoteEP);
+                byte[] startCode = Encoding.ASCII.GetBytes("N");
+                sender.Send(startCode);
+
+                Guid guid = new Guid();
+                byte[] userID = guid.ToByteArray();
+                sender.Send(userID);
+
 
                 Instructions.Text += "Socket connected to " + sender.RemoteEndPoint.ToString() + "\n";
                 Name.IsEnabled = IPAdd.IsEnabled = PortNumber.IsEnabled = ConnectButton.IsEnabled = false;
@@ -134,7 +141,7 @@ namespace HiLoGame_Client
             }
 
             // Send the data through the socket.  
-            int bytesSent = sender.Send(number);
+            int bytesSent = sender.SendTo(number, remoteEP);
 
             // Receive the response from the remote device.  
             int bytesRec = sender.Receive(bytes);
@@ -150,8 +157,6 @@ namespace HiLoGame_Client
 
         private void StopButton_Click(object s, RoutedEventArgs e)
         {
-            // Data buffer for incoming data.  
-            byte[] bytes = new byte[1024];
             byte[] exitCode = Encoding.ASCII.GetBytes("E");
 
             MessageBoxResult closingResult = MessageBox.Show("Do you want to exit?", "Exit", MessageBoxButton.YesNo);
@@ -183,12 +188,15 @@ namespace HiLoGame_Client
         */
         private void CloseButton_Click(object s, System.ComponentModel.CancelEventArgs e)
         {
+            byte[] exitCode = Encoding.ASCII.GetBytes("E");
+
             MessageBoxResult closingResult = MessageBox.Show("Do you want to exit?", "Exit", MessageBoxButton.YesNo);
 
             if (closingResult == MessageBoxResult.Yes)
             {
                 if (sender != null && sender.Connected)
                 {
+                    int bytesSent = sender.Send(exitCode);
                     sender.Shutdown(SocketShutdown.Both);
                     sender.Close();
                 }
@@ -198,6 +206,7 @@ namespace HiLoGame_Client
             {
                 // do nothing
             }
+
         }
 
     }

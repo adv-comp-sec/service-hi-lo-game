@@ -32,8 +32,8 @@ namespace A06Service
         protected override void OnStop()
         {
             Logger.Log("Stopping HiLo Game Service.");
-            GameEngine game = new GameEngine();
-            game.StopListening();
+            //GameEngine game = new GameEngine();
+            //game.StopListening();            
         }
     }
 }

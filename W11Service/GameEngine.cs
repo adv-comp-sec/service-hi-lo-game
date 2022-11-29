@@ -101,11 +101,9 @@ namespace A06Service
 
         public void StopListening()
         {
-            msg = Encoding.ASCII.GetBytes("Stopping the server.");
-            handler.Send(msg);
+            //msg = Encoding.ASCII.GetBytes("Stopping the server.");
+            //handler.Send(msg);
             listen = false;
-            handler.Shutdown(SocketShutdown.Both);
-            handler.Close();
         }
     }
 }

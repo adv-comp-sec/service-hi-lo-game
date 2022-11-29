@@ -10,13 +10,12 @@ namespace A06Service
         public static void Log(string message)
         {
             Guid guid = Guid.NewGuid();
-            string directoryPath = ConfigurationManager.AppSettings["Directory"];
-            string logFilePath = directoryPath + "\\" + guid.ToString() + ".txt";
+            string logFilePath = ConfigurationManager.AppSettings["Directory"];
             StreamWriter HiLoLog = null;
             
             try
             {
-                HiLoLog = new StreamWriter(logFilePath);
+                HiLoLog = new StreamWriter(logFilePath, true);
                 HiLoLog.Write("\r\nLog Entry:\n" + DateTime.Now.ToString() + ": " + message);
             }
             catch(Exception e)

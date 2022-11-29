@@ -21,7 +21,7 @@ namespace A06Service
 
         protected override void OnStart(string[] args)
         {
-            Logger.Log("Starting...");
+            Logger.Log("Starting HiLo Game Service.");
             Task.Run(() =>
             {
                 HiLoGame_Server.SynchronousSocketListenenr ssl = new HiLoGame_Server.SynchronousSocketListenenr();
@@ -31,7 +31,9 @@ namespace A06Service
 
         protected override void OnStop()
         {
-
+            Logger.Log("Stopping HiLo Game Service.");
+            HiLoGame_Server.SynchronousSocketListenenr ssl = new HiLoGame_Server.SynchronousSocketListenenr();
+            ssl.StopListening();
         }
     }
 }

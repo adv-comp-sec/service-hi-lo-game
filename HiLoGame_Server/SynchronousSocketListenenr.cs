@@ -70,27 +70,34 @@ namespace HiLoGame_Server
 
             data += Encoding.ASCII.GetString(bytes, 0, bytesReceived);      // process the data to ASCII values (decoding)
 
-            int guess = Convert.ToInt32(data);
-
-            if (guess == randomNumber)            // check if guess is correct
+            if (data == "E")
             {
-                msg = Encoding.ASCII.GetBytes("You Win!");
+                StopListening();
             }
-            else                                        // change the range accordingly the guess
+            else
             {
-                if (guess < randomNumber)
+                int guess = Convert.ToInt32(data);
+
+                if (guess == randomNumber)            // check if guess is correct
                 {
-                    minNumber = guess + 1;
-                    msg = Encoding.ASCII.GetBytes("Your allowable range is " + minNumber + " to " + maxNumber);
+                    msg = Encoding.ASCII.GetBytes("You Win!");
+                }
+                else                                        // change the range accordingly the guess
+                {
+                    if (guess < randomNumber)
+                    {
+                        minNumber = guess + 1;
+                        msg = Encoding.ASCII.GetBytes("Your allowable range is " + minNumber + " to " + maxNumber);
                     
-                }
-                else
-                {
-                    maxNumber = guess - 1;
-                    msg = Encoding.ASCII.GetBytes("Your allowable range is " + minNumber + " to " + maxNumber);
+                    }
+                    else
+                    {
+                        maxNumber = guess - 1;
+                        msg = Encoding.ASCII.GetBytes("Your allowable range is " + minNumber + " to " + maxNumber);
+                    }
                 }
             }
-
+            
             handler.Send(msg);
             handler.Shutdown(SocketShutdown.Both);
             handler.Close();
